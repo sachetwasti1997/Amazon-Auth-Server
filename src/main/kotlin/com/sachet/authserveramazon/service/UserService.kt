@@ -20,6 +20,10 @@ class UserService(
             throw Exception("User Already Exist, please try with different email address!")
         }
         user.password = bCryptPasswordEncoder.encode(user.password)
+        val address = user.address
+        for (a in address) {
+            a.user = user
+        }
         return jwtService.generateToken(userRepo.save(user))
     }
 

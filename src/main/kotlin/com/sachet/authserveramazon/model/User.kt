@@ -1,5 +1,6 @@
 package com.sachet.authserveramazon.model
 
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import jakarta.persistence.*
 
 @Entity
@@ -13,7 +14,7 @@ class User(
     var lastName: String ?= null,
     var email: String ?= null,
     var password: String ?= null,
-    @OneToOne(cascade = [CascadeType.ALL])
-    @JoinColumn(name = "address_id")
-    var address: Address
+    @JsonManagedReference
+    @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "user")
+    var address: List<Address>
 )
